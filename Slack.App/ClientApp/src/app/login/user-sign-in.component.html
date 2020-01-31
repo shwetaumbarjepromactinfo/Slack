@@ -1,0 +1,74 @@
+<style>
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 80%;
+    margin: auto;
+    border-radius: 5px;
+  }
+
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+  img {
+    border-radius: 5px 5px 0 0;
+  }
+
+  .container {
+    padding: 2px 16px;
+  }
+
+  .is-invalid {
+    border-bottom-color: brown;
+  }
+
+  .invalid-feedback {
+    color: brown;
+  }
+</style>
+<nav class="navbar navbar" style="    background-color: white; border-block-end-color: inherit;color: #b7b6b6;">
+  <div class="container-fluid">
+    <div class="navbar-header" style="padding: 10px;">
+      <img src="../../assets/images/slack logo.png" style="width:150px" />
+      <a class="navbar-brand" style="color:white;float: none;" href="#"></a>
+    </div>
+  </div>
+</nav>
+<div class="card">
+  <div class="container">
+    <div class="col-sm-3">
+    </div>
+    <form [formGroup]="userForm" (ngSubmit)="OnSubmit()">
+      <div class="col-sm-4">
+        <div class="form-group" style="text-align:center;">
+          <h2>Sign in to {{workspaceName}}</h2>
+          <label>Enter your workspace’s information!</label>
+        </div>
+        <div class="alert alert-danger" *ngIf="errorMessage != null">
+          Invalid! Please Enter valid data.
+        </div>
+        <div class="form-group">
+          <label>Enter your email address and password</label>
+          <input type="email" formControlName="UserEmail" class="form-control" required placeholder="You@Example.com" [ngClass]="{'is-invalid': displayMessage.UserEmail}" />
+          <span class="invalid-feedback">
+            {{displayMessage.UserEmail}}
+          </span>
+        </div>
+        <div class="form-group">
+          <input type="password" formControlName="UserPassword" class="form-control" required placeholder="Password" [ngClass]="{'is-invalid': displayMessage.UserPassword}" />
+          <span class="invalid-feedback">
+            {{displayMessage.UserPassword}}
+          </span>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-success btn_large" style="width: 100%">Sign In</button>
+        </div>
+      </div>
+    </form>
+    <div class="col-sm-3">
+    </div>
+  </div>
+</div>
+
+

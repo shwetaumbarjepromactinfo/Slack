@@ -1,0 +1,8 @@
+C:\Slack\Slack.Core\bin\Debug\netcoreapp2.1\Slack.Core.deps.json
+C:\Slack\Slack.Core\bin\Debug\netcoreapp2.1\Slack.Core.dll
+C:\Slack\Slack.Core\bin\Debug\netcoreapp2.1\Slack.Core.pdb
+C:\Slack\Slack.Core\obj\Debug\netcoreapp2.1\Slack.Core.csprojAssemblyReference.cache
+C:\Slack\Slack.Core\obj\Debug\netcoreapp2.1\Slack.Core.AssemblyInfoInputs.cache
+C:\Slack\Slack.Core\obj\Debug\netcoreapp2.1\Slack.Core.AssemblyInfo.cs
+C:\Slack\Slack.Core\obj\Debug\netcoreapp2.1\Slack.Core.dll
+C:\Slack\Slack.Core\obj\Debug\netcoreapp2.1\Slack.Core.pdb

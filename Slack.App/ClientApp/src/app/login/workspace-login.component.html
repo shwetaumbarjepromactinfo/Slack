@@ -1,0 +1,104 @@
+<style>
+  .card {
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    transition: 0.3s;
+    width: 80%;
+    margin: auto;
+    border-radius: 5px;
+  }
+
+    .card:hover {
+      box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    }
+
+  img {
+    border-radius: 5px 5px 0 0;
+  }
+
+  .container {
+    padding: 2px 16px;
+  }
+
+  .is-invalid {
+    border-bottom-color: brown;
+  }
+
+  .invalid-feedback {
+    color: brown;
+  }
+</style>
+<nav class="navbar navbar" style="    background-color: white; border-block-end-color: inherit;color: #b7b6b6;">
+  <div class="container-fluid">
+    <div class="navbar-header" style="padding: 10px;">
+      <img src="../../assets/images/slack logo.png" style="width:150px" />
+      <a class="navbar-brand" style="color:white;float: none;" href="#"></a>
+    </div>
+    <div *ngIf="userId != null && userId != 0" class="form-group" style="float: right;margin: 20px;">
+      <div class="btn-group" dropdown>
+        <button id="button-basic1" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                aria-controls="dropdown-basic1" style="background-color: #5bc5a7;border-color: #5bc5a7;">
+          <span><i class="glyphicon glyphicon-bell"></i></span>
+          <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic1" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-basic1">
+          <li role="menuitem" *ngFor="let tab of tabs"><p *ngFor="let msg of tab.messageHistory">{{msg.message}}</p></li>
+
+        </ul>
+      </div>
+      <div class="btn-group" dropdown>
+        <button id="button-basic" dropdownToggle type="button" class="btn btn-primary dropdown-toggle"
+                aria-controls="dropdown-basic" style="background-color: #5bc5a7;border-color: #5bc5a7;">
+          <span><i class="glyphicon glyphicon-user"></i></span>
+          {{userName}} <span class="caret"></span>
+        </button>
+        <ul id="dropdown-basic" *dropdownMenu class="dropdown-menu"
+            role="menu" aria-labelledby="button-basic">
+          <li role="menuitem"><a class="dropdown-item" href="#">Your account</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Create a group</a></li>
+          <li role="menuitem"><a class="dropdown-item" href="#">Fairness calculators</a></li>
+          <li class="divider dropdown-divider"></li>
+          <li role="menuitem">
+            <a (click)="LogOut()" class="dropdown-item">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<div class="card">
+  
+  <div class="container">
+
+    <div class="col-sm-3">
+    </div>
+    <form [formGroup]="userForm" (ngSubmit)="OnSubmit()">
+      <div class="col-sm-4">
+        <div class="form-group" style="text-align:center;">
+          <h2>Sign in to your workspace</h2>
+          <label>Enter your workspace's <b>Slack URL.</b></label>
+        </div>
+        <div class="alert alert-danger" *ngIf="errorMessage != null">
+         Invalid! Please Enter valid name.
+        </div>
+        <div class="form-group">
+          <input type="email" formControlName="WorkspaceName" class="form-control" required placeholder="Your-workspace-url" [ngClass]="{'is-invalid': displayMessage.WorkspaceName}" />
+          <span class="invalid-feedback">
+            {{displayMessage.WorkspaceName}}
+          </span>
+        </div>
+        <div class="form-group">
+          <button class="btn btn-success btn_large" style="width: 100%">Continue <i class="glyphicon glyphicon-arrow-right"></i></button>
+        </div>
+        <div class="form-group">
+          <label>Don't know your workspace URL?<a>Find your workspacec</a></label>
+        </div>
+      </div>
+      </form>
+    <div class="col-sm-3">
+    </div>
+  </div>
+    </div>
+      
+

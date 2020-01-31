@@ -1,0 +1,193 @@
+<style>
+  .group-bg {
+    background-color: #fff;
+    border-color: #ededed;
+    color: #000;
+  }
+
+  .column {
+    float: left;
+    width: 50%;
+    padding: 5px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .column-sm {
+    float: left;
+    width: 30%;
+    padding: 5px;
+    padding-left: 14px;
+    padding-right: 14px;
+  }
+
+  .is-invalid {
+    color: red;
+  }
+
+  .list-group-item {
+    padding: 0px;
+  }
+
+  .dot {
+    height: 10px;
+    width: 10px;
+    background-color: #2BAC76;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .invalid-feedback {
+    color: brown;
+  }
+
+  .no-margin {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+</style>
+<div class="body-content" *ngIf="user">
+  <div class="row" style="bottom: 10px">
+    <div class="col-sm-12" style="padding-left: 0px;">
+      <div class="list-group">
+        <div class="list-group-item list-group-item-action flex-column align-items-start group-bg" style="border-left: white;">
+          <div class="d-flex w-100 justify-content-between">
+            <h4 class="mb-1" style="margin-bottom: 2px;margin-top: 7px;">
+              {{user['displayName']}}
+              <div style="float: right">
+                <i class="glyphicon glyphicon-cog" (click)="userSettings = !userSettings"></i>
+                <i class="glyphicon glyphicon-info-sign" data-toggle="modal" data-target="#basicExampleModal"></i>
+              </div>
+            </h4>
+            <div class="alert alert-success" *ngIf="userSettings == 1" style="background-color:#f1f1f1; color:black;width: 150px;float: right;">
+              <p data-toggle="modal" data-target="#basicExampleModal1">View Profile</p>
+            </div>
+            <span class="dot"></span> Active | {{user['fullName']}}
+          </div>
+        </div>
+        <br />
+        <div *ngFor="let message of messageDetails">
+          <h5 *ngIf="updatedDate != (message['createdAt'])">__________________{{message['createdAt']| date:'MMMM d, y'}}__________________</h5>
+          <div href="#" class="list-group-item list-group-item-action flex-column align-items-start" style="border: 1px solid #fff;">
+            <div class="d-flex w-100 justify-content-between row">
+              <img src="/assets/images/{{message['sendByImagePath']}}" style="float:left;padding:3px;padding-right:5px;width:30px" />
+              <label>{{message['sendByName']}}</label> {{message['createdAt']| date:'hh:mm a'}}<br />
+              <h5 style="float: left;">{{message['messageDescription']}}</h5>
+              <i class="glyphicon glyphicon-edit" *ngIf="message['sendById'] == userId" (click)="showUndoBtn(message['messageId'])" style="float: right;margin-right: 20px;"></i>
+              <div [attr.id]="'option'+message['messageId']" *ngIf="messageOption == message['messageId'] && hide == 0 " class="card" style="float: right;background: #eeeeee;padding: 5px;">
+                <h6 (click)="editMessageFunc(message['messageId'])">edit message</h6>
+                <h6 (click)="deleteMessageFunc(message['messageId'])">delete message</h6>
+              </div>
+              <form [formGroup]="editMessageForm" (ngSubmit)="OnUpdate(message['messageId'])" [attr.id]="'editMessage'+message['messageId']" *ngIf="editMessage == message['messageId'] && editMessageHide == 0">
+                <input type="text" class="form-control" [value]="message['messageDescription']" formControlName="MessageDescription" style="width:80%" />
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <form [formGroup]="messageForm" (ngSubmit)="OnSubmit()">
+    <div class="alert alert-danger" *ngIf="errorMessage != null">
+      Invalid! Please Enter valid data.
+    </div>
+    <div class="input-group" style="position: fixed; bottom: 15px; width: 72%;">
+      <input type="text" class="form-control" formControlName="MessageDescription" placeholder="Message {{user['displayName']}}" [ngClass]="{'is-invalid': displayMessage.MessageDescription}" />
+      <span class="input-group-addon">
+        <button type="submit" class="glyphicon glyphicon-play" style="background: #eeeeee;
+    border: aliceblue;"></button>
+      </span>
+    </div>
+    <span class="invalid-feedback">
+      {{displayMessage.MessageDescription}}
+    </span>
+  </form>
+  
+    <div *ngFor="let tab of tabs">
+      <h6 *ngFor="let msg of tab.messageHistory">
+         <div *ngIf="alertShow" class="alert alert-success" style="position: relative;">
+            {{msg.message}}
+         </div>
+        </h6>
+  </div>
+  </div>
+
+<!--profile info-->
+
+<div class="modal fade" id="basicExampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true" *ngIf="user">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 70%;">
+      <div class="modal-header">
+        <h3 class="modal-title" style="float:left" id="exampleModalLabel">
+          About this conversation
+        </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-3">
+            <img src="/assets/images/{{user['imagePath']}}" style="float:left;padding:3px;padding-right:5px;width:80px" />
+          </div>
+          <div class="col-sm-6">
+            <label style="margin-bottom: 0px;">{{user['displayName']}}</label>
+            <h5 class="no-margin">{{user['fullName']}} <span class="dot"></span></h5>
+            <h5 class="no-margin">{{user['position']}}</h5>
+          </div>
+        </div>
+        <hr />
+        <div class="row">
+          <div class="col-sm-10">
+            <h5>Time zone {{currentDate | date:'hh:mm a'}} Local Time</h5>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--View profile-->
+
+<div class="modal fade" id="basicExampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel1" aria-hidden="true" *ngIf="user">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content" style="width: 80%;">
+      <div class="modal-header">
+        <h3 class="modal-title" style="float:left" id="exampleModalLabel1">
+          Workspace Directory
+        </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-sm-12">
+            <img src="/assets/images/{{user['imagePath']}}" style="float:left;padding:3px;padding-right:5px;width: 100%" />
+          </div>
+          <div class="col-sm-12">
+            <h1>{{user['displayName']}}</h1>
+            <h5 class="no-margin">{{user['position']}}</h5>
+            <hr />
+            <h5>Dispaly Name</h5>
+            <h5 class="no-margin">{{user['fullName']}} <span class="dot"></span></h5>
+            <hr />
+            <h5>Local Time</h5>
+            <h5>Time zone {{currentDate | date:'hh:mm a'}}</h5>
+            <hr />
+            <h5>Email Addreess</h5>
+            <h5>{{user['userEmail']}}</h5>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>

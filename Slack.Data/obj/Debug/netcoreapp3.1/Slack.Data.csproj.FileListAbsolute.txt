@@ -1,0 +1,13 @@
+C:\Slack\Slack.Data\bin\Debug\netcoreapp3.1\Slack.Data.deps.json
+C:\Slack\Slack.Data\bin\Debug\netcoreapp3.1\Slack.Data.dll
+C:\Slack\Slack.Data\obj\Debug\netcoreapp3.1\Slack.Data.csprojAssemblyReference.cache
+C:\Slack\Slack.Data\obj\Debug\netcoreapp3.1\Slack.Data.AssemblyInfoInputs.cache
+C:\Slack\Slack.Data\obj\Debug\netcoreapp3.1\Slack.Data.AssemblyInfo.cs
+C:\Slack\Slack.Data\bin\Debug\netcoreapp3.1\Slack.Data.runtimeconfig.json
+C:\Slack\Slack.Data\bin\Debug\netcoreapp3.1\Slack.Data.runtimeconfig.dev.json
+C:\Slack\Slack.Data\bin\Debug\netcoreapp3.1\Slack.Data.pdb
+C:\Slack\Slack.Data\bin\Debug\netcoreapp3.1\Slack.Core.dll
+C:\Slack\Slack.Data\bin\Debug\netcoreapp3.1\Slack.Core.pdb
+C:\Slack\Slack.Data\obj\Debug\netcoreapp3.1\Slack.Data.csproj.CopyComplete
+C:\Slack\Slack.Data\obj\Debug\netcoreapp3.1\Slack.Data.dll
+C:\Slack\Slack.Data\obj\Debug\netcoreapp3.1\Slack.Data.pdb

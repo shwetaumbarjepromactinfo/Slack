@@ -1,0 +1,101 @@
+<style>
+  .navbar-inverse {
+    background-color: #3F0E40;
+    border-color: #3F0E40;
+  }
+
+  .setting-menu {
+    color: black;
+    padding: 10px;
+  }
+
+  .dot {
+    height: 10px;
+    width: 10px;
+    background-color: #2BAC76;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .notification {
+    padding-right: 10px;
+    padding-top: 20px;
+    float: right;
+    color: white;
+    width: 60px;
+  }
+
+  .navbar[_ngcontent-c1] a[_ngcontent-c1] {
+    width: 80% !important;
+  }
+
+  .num {
+    position: absolute;
+    right: -6px;
+    top: 10px;
+    color: #fff;
+  }
+  .notification-own {
+    padding-top: 23px;
+    color: white;
+  }
+</style>
+<div class='main-nav' *ngIf="userId != 0 && user">
+  <div class='navbar navbar-inverse'>
+    <div class='navbar-header'>
+      <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse' [attr.aria-expanded]='isExpanded' (click)='toggle()'>
+        <span class='sr-only'>Toggle navigation</span>
+        <span class='icon-bar'></span>
+        <span class='icon-bar'></span>
+        <span class='icon-bar'></span>
+      </button>
+      <div class="row" style="padding-left: 10px;">
+        <a class='navbar-brand' (click)="settings = !settings" [routerLink]='["/"]'>{{workspaceName}} <i class="glyphicon glyphicon-chevron-down" style="font-size: 13px;"></i></a>
+        <span (click)="countShow = !countShow"><i class="glyphicon glyphicon-bell notification-own" ><span class="num">{{count}}</span></i></span>
+        <div *ngIf="countShow == 1 && count!=0" class="alert alert-success" style="background-color:#f1f1f1; color:black;padding-bottom:0px;width:85%">
+            <h4 *ngFor="let tab of tabs"><h6 *ngFor="let msg of tab.messageHistory">{{msg.message}}</h6></h4>
+        </div>
+       
+      </div>
+        <div *ngIf="settings == 1" class="alert alert-success" style="background-color:#f1f1f1; color:black;padding-bottom:0px">
+          <div class="setting-menu">
+            <img src="../../assets/images/{{user['imagePath']}}" style="width: 30px; padding: 2px;" />
+            <label>{{user["fullName"]}}</label><br />
+          </div>
+          <a class="setting-menu">
+            Set a Status
+          </a><br />
+          <a class="setting-menu">
+            Profile & account
+          </a><br />
+          <a class="setting-menu">
+            Set yourself to away
+          </a><br />
+          <a class="setting-menu">
+            Sign Out
+          </a>
+        </div>
+        <div style="padding-left: 5px;"><span class="dot"></span><label style="color: white; padding: 5px;">{{user['displayName']}}</label></div>
+      </div>
+    
+    <div class='clearfix'></div>
+    
+    <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
+      <span style="color:#afacac"><h5>Direct Messages</h5></span>
+      <ul class='nav navbar-nav'>
+        <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }' style="font-weight: bold;">
+          <a [routerLink]='["/view-chat",user["userId"]]' (click)='collapse()'>
+            <span class="dot"></span> {{user['fullName']}} (you)
+          </a>
+        </li>
+      </ul>
+      <ul class='nav navbar-nav' *ngFor="let friend of friends">
+        <li [routerLinkActive]='[""]' [routerLinkActiveOptions]='{ exact: true }' style="    font-weight: bold;">
+          <a [routerLink]='["/view-chat",friend["userId"]]' (click)='collapse()'>
+            <span class="dot"></span> {{friend['fullName']}}
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>
