@@ -1,0 +1,46 @@
+<h2>
+  Edit Your Profile
+</h2>
+<form [formGroup]="editForm" (ngSubmit)="OnSubmit()">
+  <div class="row" *ngIf='user'>
+    <div class="col-sm-6">
+      <div class="form-group">
+        <label for="email">Full Name</label>
+        <input type="text" class="form-control" formControlName="FullName">
+      </div>
+      <div class="form-group">
+        <label for="pwd">Display Name</label>
+        <input type="text" class="form-control" formControlName="DisplayName">
+      </div>
+      <div class="form-group">
+        <label for="pwd">Status</label>
+        <input type="text" class="form-control" formControlName="UserStatus">
+      </div>
+      <div class="form-group">
+        <label for="pwd">What I do</label>
+        <input type="text" class="form-control" formControlName="Position">
+      </div>
+      <div class="form-group">
+        <label for="pwd">Phone number</label>
+        <input type="number" class="form-control" formControlName="PhoneNumber">
+      </div>
+    </div>
+    <div class="col-sm-4">
+      <div class="form-group">
+        <label for="pwd">Profile photo</label><br />
+        <img src="/assets/images/{{user['imagePath']}}" style="width: 200Px; height: 200px;" />
+      
+      </div>
+      <div class="form-group">
+        <input type="file" id="file"
+               (change)="handleFileInput($event.target.files)">
+        
+      </div>
+    </div>
+
+  </div>
+  <div class="form-group">
+    <a [routerLink]="['view-chat',userId]" class="btn btn-primary">Back</a>
+    <input type="submit" value="Save" class="btn btn-success" />
+  </div>
+</form>
