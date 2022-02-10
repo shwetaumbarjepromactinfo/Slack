@@ -29,7 +29,7 @@
     "bootstrap": "^3.4.1",
     "core-js": "^2.4.1",
     "jquery": "^3.4.1",
-    "node-sass": "^4.9.0",
+    "node-sass": "^7.0.0",
     "rxjs": "^5.5.6",
     "zone.js": "^0.8.19"
   },
@@ -54,7 +54,7 @@
     "typescript": "~2.5.3"
   },
   "optionalDependencies": {
-    "node-sass": "^4.9.0"
+    "node-sass": "^7.0.0"
   },
   "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.7.0.",
   "main": "karma.conf.js",
